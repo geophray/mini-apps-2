@@ -7,13 +7,12 @@ class App extends React.Component{
     this.state = {
 
     };
-
   }
 
   render() {
     return(
       <h2>My react app is rendering!</h2>
-    )
+    );
   };
 };
 
