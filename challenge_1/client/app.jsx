@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactPaginate from 'react-paginate';
 import axios from 'axios';
 
 import SearchForm from './components/SearchForm.jsx';
@@ -18,6 +17,7 @@ class App extends React.Component{
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
   };
 
   componentDidMount() {
@@ -25,9 +25,9 @@ class App extends React.Component{
   };
 
   getEventsByQuery() {
-    const { currentPage, query } = this.state;
+    const { currentPage, searched } = this.state;
     axios
-      .get(`/events?_page=${currentPage}&q=${query}`)
+      .get(`/events?_page=${currentPage}&q=${searched}`)
       .then((results) => {
         console.log(results);
         this.setState({
@@ -52,12 +52,17 @@ class App extends React.Component{
     this.setState((previousState) => ({
       currentPage: 1,
       searched: previousState.query
-    }));
-
-    this.getEventsByQuery();
+    }), this.getEventsByQuery);
 
     this.setState({
       query: ''
+    });
+  };
+
+  handlePageClick(e) {
+    let currentPage = e.selected + 1;
+    this.setState({ currentPage }, () => {
+      this.getEventsByQuery();
     });
   };
 
@@ -76,6 +81,7 @@ class App extends React.Component{
           searched={searched}
           currentPage={currentPage}
           totalResults={totalResults}
+          handlePageClick={this.handlePageClick}
         />
       </>
     );
