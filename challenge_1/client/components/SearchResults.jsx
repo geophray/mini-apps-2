@@ -3,6 +3,8 @@ import ReactPaginate from 'react-paginate';
 
 import Event from './Event.jsx';
 
+import styles from '../css/searchResults.css';
+
 const SearchResults = ({ events, searched, currentPage, totalResults, handlePageClick }) => {
 
   if (searched) {
@@ -16,11 +18,8 @@ const SearchResults = ({ events, searched, currentPage, totalResults, handlePage
       <>
         <h2>Search Results for "{searched}"</h2>
         <span>Displaying results {start} - {end > totalResults ? totalResults : end} of {totalResults}.</span>
-        <div>
-          {eventList}
-        </div>
         <ReactPaginate
-          previousLabel={'previous'}
+          previousLabel={'prev'}
           nextLabel={'next'}
           breakLabel={'...'}
           breakClassName={'break-me'}
@@ -28,10 +27,13 @@ const SearchResults = ({ events, searched, currentPage, totalResults, handlePage
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
           onPageChange={handlePageClick}
-          containerClassName={'pagination'}
-          subContainerClassName={'pages pagination'}
-          activeClassName={'active'}
+          containerClassName={styles['pagination']}
+          subContainerClassName={`${styles['pages']} ${styles['pagination']}`}
+          activeClassName={styles['active']}
         />
+        <div>
+          {eventList}
+        </div>
       </>
     );
   } else {
