@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
+
+import Chart from './components/Chart.jsx';
 
 class App extends React.Component{
   constructor(props) {
@@ -10,26 +11,29 @@ class App extends React.Component{
     };
   };
 
-  componentDidMount() {
-    this.getCoindeskData();
-  }
+  // componentDidMount() {
+  //   this.getCoindeskData(this.fillChart);
+  // }
 
-  getCoindeskData() {
-    axios
-      .get('/coindesk')
-      .then((response) => {
-        this.setState({
-          data: response.data
-        });
-      })
-      .catch((err) => {
-        console.error('Error retrieving data. Please try again later.');
-      });
-  }
+  // getCoindeskData(cb) {
+  //   axios
+  //     .get('/coindesk')
+  //     .then((response) => {
+  //       this.setState({
+  //         data: response.data
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.error('Error retrieving data. Please try again later.');
+  //     });
+  // }
 
   render() {
+    const { data } = this.state;
     return (
-      <h2>My react app is being rendered! Hooray!</h2>
+      <>
+        <Chart />
+      </>
     );
   };
 };
