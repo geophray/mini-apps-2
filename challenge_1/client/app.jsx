@@ -29,7 +29,6 @@ class App extends React.Component{
     axios
       .get(`/events?_page=${currentPage}&q=${searched}`)
       .then((results) => {
-        console.log(results);
         this.setState({
           events: results.data,
           totalResults: parseInt(results.headers['x-total-count'])
