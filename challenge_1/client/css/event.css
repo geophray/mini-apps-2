@@ -1,0 +1,18 @@
+.single-event {
+  margin-bottom: 10px;
+  background-color: olive;
+  color: white;
+  padding: 0px;
+}
+
+.single-event p {
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+  padding: 1em;
+}
+
+.single-event div {
+  background-color: #AAA;
+  color: white;
+  padding: 1em;
+}
