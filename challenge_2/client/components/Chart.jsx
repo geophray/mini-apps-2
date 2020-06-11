@@ -40,12 +40,23 @@ class Chart extends React.Component {
     };
     newChartData.labels = dates;
     newChartData.datasets = [{
-      label: 'Bitcoin Price (USD)',
-      data: closeVals
+      label: 'BTC (USD)',
+      data: closeVals,
+      pointRadius: 0,
+      fill: false,
+      borderColor: 'orange',
     }]
     this.setState({
       chartData: newChartData
     });
+  }
+
+  static defaultProps = {
+    displayTitle: true,
+    titleText: 'Historical Bitcoin Prices',
+    displayLegend: false,
+    yAxesLabelText: 'Bitcoin Price (USD)',
+    xAxesUnit: 'month',
   }
 
   render() {
@@ -53,7 +64,30 @@ class Chart extends React.Component {
     return (
       <Line
         data={ chartData }
-        options={{}}
+        options={{
+          title: {
+            display: this.props.displayTitle,
+            text: this.props.titleText,
+            fontSize: 25
+          },
+          legend: {
+            display: this.props.displayLegend
+          },
+          scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: this.props.xAxesUnit,
+                }
+            }],
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: this.props.yAxesLabelText,
+              }
+            }]
+          }
+        }}
       />
     );
   };
