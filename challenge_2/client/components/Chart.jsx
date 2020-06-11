@@ -20,9 +20,25 @@ class Chart extends React.Component {
     axios
       .get('/coindesk')
       .then((response) => {
+        const newChartData= {};
+        const { bpi } = response.data;
+        const dates = [];
+        const closeVals = [];
+        for (const date in bpi) {
+          dates.push(date);
+          closeVals.push(bpi[date]);
+        };
+        newChartData.labels = dates;
+        newChartData.datasets = [{
+          label: 'BTC (USD)',
+          data: closeVals,
+          pointRadius: 0,
+          fill: false,
+          borderColor: 'orange',
+        }]
         this.setState({
-          rawData: response.data
-        }, this.wrangleCoinDeskData);
+          chartData: newChartData
+        });
       })
       .catch((err) => {
         console.error('Error retrieving data. Please try again later.');
@@ -30,25 +46,7 @@ class Chart extends React.Component {
   }
 
   wrangleCoinDeskData() {
-    const newChartData= {};
-    const { bpi } = this.state.rawData;
-    const dates = [];
-    const closeVals = [];
-    for (const date in bpi) {
-      dates.push(date);
-      closeVals.push(bpi[date]);
-    };
-    newChartData.labels = dates;
-    newChartData.datasets = [{
-      label: 'BTC (USD)',
-      data: closeVals,
-      pointRadius: 0,
-      fill: false,
-      borderColor: 'orange',
-    }]
-    this.setState({
-      chartData: newChartData
-    });
+
   }
 
   static defaultProps = {
