@@ -45,10 +45,6 @@ class Chart extends React.Component {
       });
   }
 
-  wrangleCoinDeskData() {
-
-  }
-
   static defaultProps = {
     displayTitle: true,
     titleText: 'Historical Bitcoin Prices',
