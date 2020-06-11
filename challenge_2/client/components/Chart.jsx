@@ -20,35 +20,29 @@ class Chart extends React.Component {
     axios
       .get('/coindesk')
       .then((response) => {
+        const newChartData= {};
+        const { bpi } = response.data;
+        const dates = [];
+        const closeVals = [];
+        for (const date in bpi) {
+          dates.push(date);
+          closeVals.push(bpi[date]);
+        };
+        newChartData.labels = dates;
+        newChartData.datasets = [{
+          label: 'BTC (USD)',
+          data: closeVals,
+          pointRadius: 0,
+          fill: false,
+          borderColor: 'orange',
+        }]
         this.setState({
-          rawData: response.data
-        }, this.wrangleCoinDeskData);
+          chartData: newChartData
+        });
       })
       .catch((err) => {
         console.error('Error retrieving data. Please try again later.');
       });
-  }
-
-  wrangleCoinDeskData() {
-    const newChartData= {};
-    const { bpi } = this.state.rawData;
-    const dates = [];
-    const closeVals = [];
-    for (const date in bpi) {
-      dates.push(date);
-      closeVals.push(bpi[date]);
-    };
-    newChartData.labels = dates;
-    newChartData.datasets = [{
-      label: 'BTC (USD)',
-      data: closeVals,
-      pointRadius: 0,
-      fill: false,
-      borderColor: 'orange',
-    }]
-    this.setState({
-      chartData: newChartData
-    });
   }
 
   static defaultProps = {
@@ -68,25 +62,25 @@ class Chart extends React.Component {
           title: {
             display: this.props.displayTitle,
             text: this.props.titleText,
-            fontSize: 25
+            fontSize: 25,
           },
           legend: {
-            display: this.props.displayLegend
+            display: this.props.displayLegend,
           },
           scales: {
             xAxes: [{
                 type: 'time',
                 time: {
                     unit: this.props.xAxesUnit,
-                }
+                },
             }],
             yAxes: [{
               scaleLabel: {
                 display: true,
                 labelString: this.props.yAxesLabelText,
-              }
-            }]
-          }
+              },
+            }],
+          },
         }}
       />
     );
