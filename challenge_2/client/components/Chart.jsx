@@ -68,25 +68,25 @@ class Chart extends React.Component {
           title: {
             display: this.props.displayTitle,
             text: this.props.titleText,
-            fontSize: 25
+            fontSize: 25,
           },
           legend: {
-            display: this.props.displayLegend
+            display: this.props.displayLegend,
           },
           scales: {
             xAxes: [{
                 type: 'time',
                 time: {
                     unit: this.props.xAxesUnit,
-                }
+                },
             }],
             yAxes: [{
               scaleLabel: {
                 display: true,
                 labelString: this.props.yAxesLabelText,
-              }
-            }]
-          }
+              },
+            }],
+          },
         }}
       />
     );
