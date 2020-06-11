@@ -12,7 +12,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         include: [
-          path.resolve(__dirname, 'app'),
+          path.resolve(__dirname, 'client'),
         ],
         exclude: [
           path.resolve(__dirname, 'node_modules'),
